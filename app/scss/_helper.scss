@@ -107,16 +107,6 @@ html{
 }
 
 //--------------------Figure-MARGIN
-@for $i from 0 through 12 {
-	.figure-m-t-#{5*$i} { 
-
-		figure{
-			margin-top: 5*$i+px;
-		}
-	 	
-	}
-}
-
 
 @for $i from 0 through 12 {
 	.figure-m-v-#{5*$i} { 
@@ -363,15 +353,45 @@ html{
 
 
 
-.display-block{
+.block{
 	display: block;
 }
-.display-none{
+.none{
 	display: none;
 }
+.inline-block{
+	display: inline-block;
+}
+.li-inline-block{
+	li{
+		display: inline-block;
+	}
+}
 
+.vam{
+	vertical-align: middle;
+}
+.vam-table{
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
 
+.fuller{
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.claf{
+	@extend .fuller;
+	content: "";
+}
 
+.over-hidden{
+	overflow: hidden;
+}
 .bg-center{
 	background-position: center center;
 }
