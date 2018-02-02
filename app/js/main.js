@@ -99,11 +99,11 @@ $(function(){
 	});
 
 
-	var carouselProjects = $('.carousel-projects .carousel-content').flickity({
-		autoPlay: 3500,
-		arrowShape: arrowStyle,
+	var carouselPortfolio = $('.carousel-portfolio .carousel-content').flickity({
 		imagesLoaded: true,
-		prevNextButtons: true,
+		autoPlay: 6000,
+		arrowShape: arrowStyle,
+		prevNextButtons: false,
 		draggable: checkSm(),
 		wrapAround: true,
 		pageDots: false,
@@ -111,47 +111,14 @@ $(function(){
 		percentPosition: true,
 		cellAlign: ''
 	});
-
-	var carouselReviews = $('.carousel-reviews .carousel-content').flickity({
-		imagesLoaded: true,
-		autoPlay: 3300,
-		arrowShape: arrowStyle,
-		groupCells: checkSm() ? 1 : 2,
-		prevNextButtons: true,
-		draggable: checkSm(),
-		wrapAround: true,
-		pageDots: false,
-		contain: false,
-		percentPosition: true,
-		cellAlign: ''
+	// next
+	$('.carousel-portfolio .carousel-nav .next').on( 'click', function() {
+  	carouselPortfolio.flickity('next');
 	});
-
-	var carouselPartners = $('.carousel-partners .carousel-content').flickity({
-		imagesLoaded: true,
-		autoPlay: 2800,
-		arrowShape: arrowStyle,
-		prevNextButtons: true,
-		draggable: checkSm(),
-		wrapAround: true,
-		pageDots: false,
-		contain: false,
-		percentPosition: true,
-		cellAlign: ''
+	$('.carousel-portfolio .carousel-nav .prev').on( 'click', function() {
+  	carouselPortfolio.flickity('previous');
 	});
-
-	var carouselCertification = $('.carousel-certification .carousel-content').flickity({
-		imagesLoaded: true,
-		autoPlay: 3000,
-		arrowShape: arrowStyle,
-		prevNextButtons: true,
-		draggable: checkSm(),
-		wrapAround: true,
-		pageDots: false,
-		contain: false,
-		percentPosition: true,
-		cellAlign: 'center'
-	});
-
+	
 	if( checkSm() )
 		$('.carousel-info-item .carousel-content').flickity({
 			imagesLoaded: true,
