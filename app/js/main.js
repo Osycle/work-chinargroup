@@ -26,8 +26,8 @@ $(function(){
 	AOS.init({
 	  offset: 100,
 	  once: true,
-	  duration: 1000,
-	  delay: 100
+	  duration: 1100,
+	  delay: 150
 	});
 
 	setTimeout(function(){AOS.refresh()}, 1000);
@@ -54,8 +54,8 @@ $(function(){
 									'<div class="min-menu-logo">'+
 									'<a  href="" ><img src="img/logo.png"/></a>'+
 									'</div>'+
-									'<div class="close-btn">'+
-									'<a  href="#page" ><i class="fa fa-angle-right"></i></a>'+
+									'<div class="close-btn bar">'+
+									'<a  href="#page" ><span class="icon-bar"></span><span class="icon-bar"></span></a>'+
 									'</div>'
 								]
 					}, 
@@ -69,56 +69,64 @@ $(function(){
 
 
   // Flikity Carousel
-  	var arrowStyle = { 
-		  x0: 10,
-		  x1: 60, y1: 50,
-		  x2: 70, y2: 40,
-		  x3: 30
-		}
+	function flickityPrevNext( className ) {
+		var carouselName = $( className )
+		var $carousel = carouselName.find( ".carousel-content" );
+		carouselName.find('.carousel-nav .next').on( 'click', function() {$carousel.flickity('next');});
+		carouselName.find('.carousel-nav .prev').on( 'click', function() {$carousel.flickity('previous');});
+	}
+	var arrowStyle = { 
+	  x0: 10,
+	  x1: 60, y1: 50,
+	  x2: 70, y2: 40,
+	  x3: 30
+	}
 
-
-
-
-
-	var carouselEquipment = $('.carousel-equipment .carousel-content').flickity({
-		//setGallerySize: false,
-		autoPlay: 3000,
-		arrowShape: arrowStyle,
-		imagesLoaded: true,
-		prevNextButtons: true,
-		draggable: checkSm(),
-		wrapAround: true,
-		//adaptiveHeight: true,
-		//selectedAttraction: 0.2,
-		//friction: 0.2,
-		//rightToLeft: true,
-		pageDots: false,
-		contain: false,
-		percentPosition: true,
-		cellAlign: ''
-	});
 
 
 	var carouselPortfolio = $('.carousel-portfolio .carousel-content').flickity({
 		imagesLoaded: true,
-		autoPlay: 6000,
+		autoPlay: false,
 		arrowShape: arrowStyle,
 		prevNextButtons: false,
-		draggable: checkSm(),
+		draggable: false,
+		selectedAttraction: 0.1,
+		friction: 1,
 		wrapAround: true,
 		pageDots: false,
 		contain: false,
 		percentPosition: true,
 		cellAlign: ''
 	});
-	// next
-	$('.carousel-portfolio .carousel-nav .next').on( 'click', function() {
-  	carouselPortfolio.flickity('next');
+	flickityPrevNext(".carousel-portfolio");
+
+	var carouselReviews = $('.carousel-reviews .carousel-content').flickity({
+		imagesLoaded: true,
+		autoPlay: 3500,
+		arrowShape: arrowStyle,
+		prevNextButtons: false,
+		draggable: false,
+		selectedAttraction: 0.1,
+		friction: 1,
+		wrapAround: true,	
+		pageDots: false,
+		contain: false,
+		percentPosition: true,
+		cellAlign: 'center'
 	});
-	$('.carousel-portfolio .carousel-nav .prev').on( 'click', function() {
-  	carouselPortfolio.flickity('previous');
-	});
-	
+	window.asd = carouselReviews;
+	flickityPrevNext(".carousel-reviews");
+
+
+
+
+
+
+
+
+
+
+
 	if( checkSm() )
 		$('.carousel-info-item .carousel-content').flickity({
 			imagesLoaded: true,
@@ -132,78 +140,6 @@ $(function(){
 			percentPosition: true,
 			cellAlign: 'left'
 		});
-
-
-	//VERTICAL CAROUSEL
-	var jcarouselWrapper = $('.jcarousel-wrapper') || null;
-	if (jcarouselWrapper)
-		for( var i =  0; i < jcarouselWrapper.length; i++ ){
-			
-			jcarouselWrapper.eq(i).find(".jcarousel")
-				.jcarousel({
-		      vertical: checkSm() ? true : true,
-		      wrap: 'both',
-		       animation: {
-			        duration: 600,
-			        easing:   'linear',
-			        complete: function() {
-			        }
-			    },
-		      center: false
-		    })
-				.on('jcarousel:targetin', 'li', function( event, carousel ) {
-				    $(this).addClass('active');
-				})
-				.on('jcarousel:targetout', 'li', function( event, carousel ) {
-						$(this).removeClass('active');
-				})
-
-				jcarouselWrapper.eq(i).find(".jcarousel").jcarousel('scroll', '2');
-				jcarouselWrapper.eq(i).find(".jcarousel").jcarousel('fullyvisible');
-
-
-			// CONTROLS
-			var prevNext = jcarouselWrapper.eq(i).find(".jcarousel-prev-next");
-
-			//prev
-			prevNext.find(".jcarousel-control-prev")
-			  .on('jcarouselcontrol:active', function() {
-	          $(this).removeClass('inactive');
-	      })
-	      .on('jcarouselcontrol:inactive', function() {
-	          $(this).addClass('inactive');
-	      })
-	      .jcarouselControl({
-	          target: '-=1'
-	      });
-
-	     //next
-	    prevNext.find(".jcarousel-control-next")
-	      .on('jcarouselcontrol:active', function() {
-	          $(this).removeClass('inactive');
-	      })
-	      .on('jcarouselcontrol:inactive', function() {
-	          $(this).addClass('inactive');
-	      })
-	      .jcarouselControl({
-	          target: '+=1'
-	      });
-		}//:end for;
-
-
-	//BOOTSTRAP TAB
-	var prevTab = $('a[data-toggle="tab"]').closest('[role="active"].active') || null;
-	if ( prevTab )
-		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-		  $(e.target).closest('[role="active"]').addClass("active");
-		  $(prevTab).removeClass("active");
-		 	//console.log( e.target, prevTab )
-		  prevTab = $(e.target).closest('[role="active"]');
-		})
-
-
-
-
 
 
 
@@ -295,7 +231,7 @@ $(function(){
 	function onLoaded  (){
 		
 		//MASONRY
-		if( $('.grid-img').length ){
+		if( $('.grid-img').length != 0 ){
 		
 			var $grid = $('.grid-img').masonry({
 			  itemSelector: '.grid-img-item',
@@ -410,77 +346,80 @@ $(function(){
 
 
 
-		window.revSlider = $('.rev-slider') || null ;
-  	if( revSlider )
-	   revSlider.revolution({
-				delay:6000,
-				startwidth: checkSm() ? $( window ).width() : 1170,
-				startheight: checkSm() ? 600 : 710,
-				autoHeight:"off",
-				fullScreenAlignForce:"off",
+		window.revSlider = $('.rev-slider') || null;
+		var bannerSlider =  $('.rev-slider').hasClass("banner-slider") || null;
 
-				onHoverStop:"off",
+		onResized(function(){
 
-				thumbWidth:100,
-				thumbHeight:50,
-				thumbAmount:3,
+	  	if( revSlider )
+		   revSlider.revolution({
+					delay:6000,
+					startwidth: checkSm() ? $( window ).width() : checkMd() ? 970 : 1170,
+					startheight: checkSm() ? 450 :  bannerSlider ? 500 : $( window ).height(),
+					autoHeight:"off",
+					fullScreenAlignForce:"off",
 
-				hideThumbsOnMobile:"on",
-				hideBulletsOnMobile:"on",
-				hideArrowsOnMobile:"on",
-				hideThumbsUnderResoluition:0,
+					onHoverStop:"on",
 
-				hideThumbs: -1,
-				hideTimerBar:"on",
+					thumbWidth:100,
+					thumbHeight:50,
+					thumbAmount:3,
 
-				keyboardNavigation:"off",
+					hideThumbsOnMobile:"on",
+					hideBulletsOnMobile:"on",
+					hideArrowsOnMobile:"on",
+					hideThumbsUnderResoluition:0,
 
-				navigationType:"none",
-				navigationArrows:"none",	//small//solo
-				navigationStyle:"round",
+					hideThumbs: -1,
+					hideTimerBar:"on",
 
-				navigationHAlign:"center",
-				navigationVAlign:"bottom",
-				navigationHOffset: 0,
-				navigationVOffset: 30,
+					keyboardNavigation:"off",
 
-				soloArrowLeftHalign:"left",
-				soloArrowLeftValign:"center",
-				soloArrowLeftHOffset:30,
-				soloArrowLeftVOffset:0,
+					navigationType:"none",
+					navigationArrows:"none",	//solo
+					navigationStyle:"round",
 
-				soloArrowRightHalign:"right",
-				soloArrowRightValign:"center",
-				soloArrowRightHOffset:30,
-				soloArrowRightVOffset:0,
+					navigationHAlign:"center",
+					navigationVAlign:"bottom",
+					navigationHOffset: 0,
+					navigationVOffset: 30,
 
+					soloArrowLeftHalign:"left",
+					soloArrowLeftValign:"center",
+					soloArrowLeftHOffset:30,
+					soloArrowLeftVOffset:0,
 
-				touchenabled: "off",
-				swipe_velocity:"0.7",
-				swipe_max_touches:"1",
-				swipe_min_touches:"1",
-				drag_block_vertical: "false",
-
-				stopAtSlide:-1,
-				stopAfterLoops:-1,
-				hideCaptionAtLimit:0,
-				hideAllCaptionAtLilmit:0,
-				hideSliderAtLimit:0,
-
-				fullWidth:"off",
-				fullScreen:"off",
-				fullScreenOffsetContainer: "",
-
-				dottedOverlay:"none",
-				forceFullWidth:"off",
-
-	      shadow:0
-
-	    }).find("li").click(function(){ revSlider.revnext() })
-		
+					soloArrowRightHalign:"right",
+					soloArrowRightValign:"center",
+					soloArrowRightHOffset:30,
+					soloArrowRightVOffset:0,
 
 
+					touchenabled: "off",
+					swipe_velocity:"0.7",
+					swipe_max_touches:"1",
+					swipe_min_touches:"1",
+					drag_block_vertical: "false",
 
+					stopAtSlide:-1,
+					stopAfterLoops:-1,
+					hideCaptionAtLimit:0,
+					hideAllCaptionAtLilmit:0,
+					hideSliderAtLimit:0,
+
+					fullWidth:"off",
+					fullScreen:"off",
+					fullScreenOffsetContainer: "#header",
+
+					dottedOverlay:"none",
+					forceFullWidth:"off",
+
+		      shadow:0
+
+		    }).find("li").click(function(){ revSlider.revnext() })
+			
+
+		});
 
 
 	});
@@ -509,15 +448,26 @@ var isWebkit = /Webkit/i.test(navigator.userAgent),
 
 
 
-
-
-
-
-
 // COMMON FUNCTION
 
+
+setTimeout( function (){
+
+	//jQuery FUNCITON
+	$.fn.onResized = function(){
+		onResized( function(){this} )
+		return this;
+	}
+
+},1)
+
+
+
 function checkSm(){
-	return ($( document ).width() < 992);
+	return ($( document ).width() <= 991);
+}
+function checkMd(){
+	return ( $( document ).width() < 1199 && !checkSm() );
 }
 
 function getRandomInt( min, max ) {
@@ -527,11 +477,12 @@ function getRandomInt( min, max ) {
 function getRandomIntFloat( min, max ) {
   return Math.random() * (max - min) + min;
 }
-function resizer( f ) {
+function onResized( f ) {
 	if( typeof f === "function" ) f();
 	$( window ).on("resize", function(e){
 		if( typeof f === "function" ) f();
 	});
+	return this;
 }
 function scrolledDiv( el ) {
 	try{
