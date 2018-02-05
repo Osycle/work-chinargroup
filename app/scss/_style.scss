@@ -1449,6 +1449,14 @@ a[underline]{
 	}
 }
 
+.companies-items{
+	@include align-cells(50, 3, table);
+	text-align: center;
+	@media (max-width:991px){
+		@include align-cells(100, 1, table);
+	}
+}
+
 //short-services
 .short-services{
 	.short-services-items{
