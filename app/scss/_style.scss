@@ -520,7 +520,7 @@ img[auto]{
 	.pagination{
 		li{
 			display: inline-block;
-			border-radius: 30px;
+			border-radius: 3px;
 			margin: 0 5px;
 			font-weight: 500;
 			&:hover{
@@ -579,7 +579,7 @@ img[auto]{
 }
 
 .list-style-1{
-	ul{
+	ul:not([class]){
 		position: relative;
 		li{
 			list-style: none;
@@ -673,7 +673,7 @@ $header-min-menu: 100px;
 	height: $header-top-height;
 	img{
 		width: 100%;
-		width: 143px;
+		width: 115px;
 		max-width: unset;
 	}
 	font{
@@ -698,14 +698,14 @@ $header-min-menu: 100px;
 			border-radius: 5px 5px 0 0;
 			position: relative;
 			border-right: 1px solid rgba(white, 0.1);
-			width: 100px;
+			//width: 115px;
 			&:last-child{
 				border: 0;
 			}
 			& > a{
 				text-align: center;
 				display: block;
-				padding: 5px 5px;
+				padding: 5px 15px;
 			}
 			&.active, &:hover{
 				color: $color-1;
@@ -1492,8 +1492,8 @@ a[underline]{
 }
 
 
-//short-projects
-.short-projects-items{
+//short-projects //news-all-items
+.short-projects-items, .news-all-items{
 
 	@include align-cells(90, 3, table);
 	@include img-flex-align(center, 165px);
@@ -1508,7 +1508,6 @@ a[underline]{
 		line-height: 160%;
 	}
 }
-
 
 
 //short-advantage
@@ -1676,6 +1675,22 @@ a[underline]{
 
 
 
+//projects
+.projects-items, .objects-items{
+
+	@include align-cells(90, 2, table);
+	@include img-flex-align(center, 200px);
+
+	@media (max-width:991px){
+		@include align-cells(100, 1, table);
+	}
+	figure{
+		box-shadow: 0 0 50px -20px black;
+	}
+	a{
+		line-height: 160%;
+	}
+}
 
 
 
